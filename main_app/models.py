@@ -1,8 +1,19 @@
 import os
 import random
-from functools import partial
 
 from django.db import models
+
+GENDERS = [
+    ("Male", "Male"),
+    ("Female", "Female"),
+]
+
+TEAMS = [
+    ("Manchester United", "Manchester United"),
+    ("Arsenal", "Arsenal"),
+    ("Chelsea", "Chelsea"),
+    ("Newcastle", "Newcastle"),
+]
 
 
 # Create your models here.
@@ -20,8 +31,7 @@ class Employee(models.Model):
     dob = models.DateField(null=True)
     salary = models.DecimalField(max_digits=7, decimal_places=2)  # 67000.58
     disabled = models.BooleanField(default=False)
-    gender = models.CharField(max_length=20, null=True)
-    team = models.CharField(max_length=20, null=True)
+    gender = models.CharField(max_length=20, default="Male", choices=GENDERS)
     profile = models.ImageField(upload_to=content_file_name, null=True)
 
     def __str__(self):
