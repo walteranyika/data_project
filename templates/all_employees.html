@@ -30,7 +30,7 @@
                             <a href="/employees/{{ employee.id }}" class="text-decoration-none">{{ employee.name }}</a>
                         </td>
                         <td>{{ employee.email }}</td>
-                        <td>{{ employee.dob | date:"d-m-Y" }}</td>
+                        <td class="text-start">{{ employee.dob | date:"d-m-Y" }}</td>
                         <td class="text-end">{{ employee.salary | intcomma }}</td>
                     </tr>
                 {% endfor %}
