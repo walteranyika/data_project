@@ -1,3 +1,4 @@
+{% load humanize %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,8 +12,8 @@
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-sm-7">
-                <table class="table">
+            <div class="col-sm-9">
+                <table class="table table-striped">
                     <thead>
                          <tr>
                              <th>Name</th>
@@ -25,11 +26,11 @@
                        {% for employee in employees %}
                        	  <tr>
                               <td>
-                                  <a href="/employees/{{ employee.id }}">{{ employee.name }}</a>
+                                  <a href="/employees/{{ employee.id }}" class="text-decoration-none">{{ employee.name }}</a>
                               </td>
                               <td>{{ employee.email }}</td>
-                              <td>{{ employee.dob }}</td>
-                              <td>{{ employee.salary }}</td>
+                              <td>{{ employee.dob | date:"d-m-Y" }}</td>
+                              <td class="text-end">{{ employee.salary | intcomma}}</td>
                           </tr>
                        {% endfor %}
                     </tbody>
