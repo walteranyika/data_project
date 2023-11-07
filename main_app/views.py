@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 
 from main_app.app_forms import EmployeeForm
@@ -22,8 +23,11 @@ def home(request):
 # All employees
 # One employee
 def all_employees(request):
-    employees = Employee.objects.all()  # SELECT * FROM employees
-    return render(request, "all_employees.html", {"employees": employees})
+    employees = Employee.objects.all().order_by("-dob")  # SELECT * FROM employees
+    paginator = Paginator(employees, 15)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, "all_employees.html", {"employees": page_obj})
 
 
 def employee_details(request, emp_id):
