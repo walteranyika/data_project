@@ -2,6 +2,7 @@ import os
 import random
 
 from django.db import models
+from multiselectfield import MultiSelectField
 
 GENDERS = [
     ("Male", "Male"),
@@ -33,6 +34,7 @@ class Employee(models.Model):
     disabled = models.BooleanField(default=False)
     gender = models.CharField(max_length=20, default="Male", choices=GENDERS)
     profile = models.ImageField(upload_to=content_file_name, null=True)
+    teams = models.CharField(max_length=100, choices=TEAMS, default="Arsenal")
 
     def __str__(self):
         return self.name
