@@ -11,6 +11,7 @@ class EmployeeAdmin(admin.ModelAdmin):
     list_display = ["name", "email", "dob", "disabled"]
     search_fields = ["name", "email"]
     list_filter = ["disabled"]
+    prepopulated_fields = {"slug": ("name",)}
 
 
 admin.site.register(Employee, EmployeeAdmin)

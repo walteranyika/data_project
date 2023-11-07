@@ -34,7 +34,8 @@ class Employee(models.Model):
     disabled = models.BooleanField(default=False)
     gender = models.CharField(max_length=20, default="Male", choices=GENDERS)
     profile = models.ImageField(upload_to=content_file_name, null=True)
-    teams = models.CharField(max_length=100, choices=TEAMS, default="Arsenal")
+    slug = models.SlugField(default="", null=False)
+    nodes = models.CharField(max_length=50, null=True, default="")
 
     def __str__(self):
         return self.name

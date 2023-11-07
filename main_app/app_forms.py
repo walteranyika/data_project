@@ -17,16 +17,17 @@ TEAMS = [
 
 class EmployeeForm(forms.ModelForm):
     gender = forms.ChoiceField(choices=GENDERS, widget=forms.RadioSelect())
-    team = forms.ChoiceField(choices=TEAMS, widget=forms.CheckboxSelectMultiple())
-    teams = forms.MultipleChoiceField(
+    # team = forms.ChoiceField(choices=TEAMS, widget=forms.CheckboxSelectMultiple())
+    nodes = forms.MultipleChoiceField(
         required=False,
         widget=forms.CheckboxSelectMultiple,
         choices=TEAMS,
     )
+    # nodes = forms.MultipleChoiceField()
 
     class Meta:
         model = Employee
-        fields = ["name", "email", "dob", "gender", "salary", "disabled", "profile", "teams"]
+        fields = ["name", "email", "dob", "gender", "salary", "disabled", "profile", "nodes"]
         widgets = {
             "dob": forms.DateInput(attrs={"min": "1990-01-01", "type": "date", "max": "2005-12-31"}),
             "salary": forms.NumberInput(attrs={"min": 10000, "max": 60000})
