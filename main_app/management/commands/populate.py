@@ -13,7 +13,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         path = os.path.join(settings.BASE_DIR, "employees.json")
         self.stdout.write(
-           self.style.SUCCESS("Started to import data")
+            self.style.SUCCESS("Started to import data")
         )
         with open(path) as file:  # file = open(path)
             employees = json.load(file)
@@ -23,9 +23,11 @@ class Command(BaseCommand):
                     email=e['email'],
                     dob=e['dob'],
                     salary=e['salary'],
-                    disabled=e["disabled"],
+                    disabled=e["disbled"],
                 )
 
         self.stdout.write(
             self.style.SUCCESS("Completed  importing data")
         )
+
+        # celery tasks
