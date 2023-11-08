@@ -29,4 +29,7 @@ class Employee(models.Model):
         return self.name
 # python manage.py makemigrations
 # python manage.py migrate
+# python manage.py populate
 # pip install Pillow
+
+# module package library
