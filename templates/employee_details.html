@@ -1,3 +1,4 @@
+{% load humanize %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -23,7 +24,7 @@
                          <p class="card-text">Ksh {{ employee.salary }}</p>
                          <p class="card-text">Born on {{ employee.dob }}</p>
                          <p class="card-text">Address {{ employee.email }}</p>
-                         <p class="card-text">Added On {{ employee.created_at }}</p>
+                         <p class="card-text">Added On {{ employee.created_at | naturaltime }}</p>
                      </div>
                  </div>
              </div>
@@ -31,3 +32,5 @@
      </div>
 </body>
 </html>
+
+
