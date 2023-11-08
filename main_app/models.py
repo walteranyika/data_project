@@ -3,6 +3,10 @@ from django.db import models
 
 # Create your models here.
 class Employee(models.Model):
+    class Meta:
+        db_table = "employees"
+        ordering = ["-dob"]
+
     # name, email, dob, salary, disabled
     name = models.CharField(max_length=40)
     email = models.EmailField(unique=True)
@@ -15,6 +19,16 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Car(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    plate = models.CharField(max_length=10, unique=True)
+    make = models.CharField(max_length=50)
+    model = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.plate}, {self.make}"
 # python manage.py makemigrations
 # python manage.py migrate
 # pip install Pillow
