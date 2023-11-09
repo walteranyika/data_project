@@ -24,6 +24,7 @@ from main_app import views
 urlpatterns = [
     path('', views.home, name="home"),
     path('employees', views.all_employees, name="all"),
+    path('employees/update/<int:emp_id>', views.employee_update, name="update"),
     path('employees/<int:emp_id>', views.employee_details, name="details"),
     path('employees/delete/<int:emp_id>', views.employee_delete, name="delete"),
     path('admin/', admin.site.urls),

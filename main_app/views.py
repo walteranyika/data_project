@@ -49,3 +49,15 @@ def employee_delete(request, emp_id):
     employee = get_object_or_404(Employee, pk=emp_id)
     employee.delete()
     return redirect("all")
+
+
+def employee_update(request, emp_id):
+    employee = get_object_or_404(Employee, pk=emp_id)
+    if request.method == "POST":
+        form = EmployeeForm(request.POST, instance=employee)
+        if form.is_valid():
+            form.save()
+            return redirect('details', employee.id)
+    else:
+        form = EmployeeForm(instance=employee)
+    return render(request, "update.html", {"form": form})
