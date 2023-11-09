@@ -27,6 +27,10 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Employee'
+        verbose_name_plural = 'Employees'
 # python manage.py makemigrations
 # python manage.py migrate
 # python manage.py populate
