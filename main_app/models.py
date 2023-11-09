@@ -27,6 +27,28 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.name
+
+
+COLORS = [
+    ("Black", "Black"),
+    ("Blue", "Blue"),
+    ("White", "White"),
+    ("Orange", "Orange"),
+    ("Other", "Other"),
+]
+
+
+# https://vegibit.com/how-to-get-related-objects-in-django/
+class Car(models.Model):
+    employee = models.ForeignKey(Employee, related_name="employee", on_delete=models.CASCADE)
+    plate = models.CharField(max_length=20, unique=True)
+    make = models.CharField(max_length=50)
+    model = models.CharField(max_length=50)
+    color = models.CharField(max_length=60, choices=COLORS, default="White")
+
+    def __str__(self):
+        return f"{self.plate}, {self.make}"
+
 # python manage.py makemigrations
 # python manage.py migrate
 # python manage.py populate
