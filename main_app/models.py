@@ -31,6 +31,7 @@ class Employee(models.Model):
     class Meta:
         verbose_name = 'Employee'
         verbose_name_plural = 'Employees'
+        ordering = ["salary"]
 # python manage.py makemigrations
 # python manage.py migrate
 # python manage.py populate
