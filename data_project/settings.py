@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "django.contrib.humanize",
+    "accounts.apps.AccountsConfig",
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+# login
+# perms
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -138,3 +141,5 @@ MESSAGE_TAGS = {
     messages.DEBUG: "alert-dark",
     messages.WARNING: "alert-warning",
 }
+
+LOGIN_URL = "/accounts/signin"

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from data_project import settings
 from main_app import views
@@ -29,11 +29,12 @@ urlpatterns = [
     path('employees/delete/<int:emp_id>', views.employee_delete, name="delete"),
     path('employees/update/<int:emp_id>', views.employee_update, name="update"),
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.accounts_url'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 # "employees/<int:emp_id>"
 # tables
 # user
-
 # admin , admin@gmail.com , 123456
 
 # python manage.py migrate

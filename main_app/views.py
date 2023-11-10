@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
@@ -11,6 +12,8 @@ from main_app.models import Employee
 
 # info, success, error, debug, warning
 # Create your views here.
+@login_required
+# @permission_required('main_app.add_employee')
 def home(request):
     if request.method == "POST":
         form = EmployeeForm(request.POST, request.FILES)
@@ -28,6 +31,8 @@ def home(request):
 
 # All employees
 # One employee
+@login_required
+@permission_required('main_app.view_employee')
 def all_employees(request):
     employees = Employee.objects.all()  # SELECT * FROM employees
     # employees = Employee.objects.all().order_by("-salary")
@@ -46,12 +51,16 @@ def all_employees(request):
     return render(request, "all_employees.html", {"employees": data})
 
 
+@login_required
+@permission_required('main_app.view_employee')
 def employee_details(request, emp_id):
     employee = Employee.objects.get(pk=emp_id)  # SELECT * FROM employees WHERE id=1
     return render(request, "employee_details.html", {"employee": employee})
 
 
 # employees/delete/12000
+@login_required
+@permission_required('main_app.delete_employee')
 def employee_delete(request, emp_id):
     employee = get_object_or_404(Employee, pk=emp_id)
     employee.delete()
@@ -59,6 +68,9 @@ def employee_delete(request, emp_id):
     return redirect("all")
 
 
+# add, change, delete, view
+
+@permission_required('main_app.view_employee')
 def search_employees(request):
     search_word = request.GET["search_word"]
     employees = Employee.objects.filter(
@@ -71,6 +83,8 @@ def search_employees(request):
     return render(request, "all_employees.html", {"employees": data})
 
 
+@login_required
+@permission_required('main_app.change_employee')
 def employee_update(request, emp_id):
     employee = get_object_or_404(Employee, pk=emp_id)  # SELECT * FROM employees WHERE id=1
     if request.method == "POST":
@@ -82,3 +96,6 @@ def employee_update(request, emp_id):
     else:
         form = EmployeeForm(instance=employee)
     return render(request, "update.html", {"form": form})
+
+# from django.contrib.auth.models import User
+# user = User.objects.create_user("judy", "judy@gmail.com", "123456")
