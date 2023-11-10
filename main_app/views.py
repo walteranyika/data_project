@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
@@ -8,12 +9,14 @@ from main_app.app_forms import EmployeeForm
 from main_app.models import Employee
 
 
+# info, success, error, debug, warning
 # Create your views here.
 def home(request):
     if request.method == "POST":
         form = EmployeeForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.info(request, "Employee was saved")
             return redirect("home")
 
     else:
@@ -52,6 +55,7 @@ def employee_details(request, emp_id):
 def employee_delete(request, emp_id):
     employee = get_object_or_404(Employee, pk=emp_id)
     employee.delete()
+    messages.warning(request, "This employee was deleted permanently")
     return redirect("all")
 
 
@@ -65,3 +69,16 @@ def search_employees(request):
     data = paginator.get_page(page_number)
     # Elastic search
     return render(request, "all_employees.html", {"employees": data})
+
+
+def employee_update(request, emp_id):
+    employee = get_object_or_404(Employee, pk=emp_id)  # SELECT * FROM employees WHERE id=1
+    if request.method == "POST":
+        form = EmployeeForm(request.POST, request.FILES, instance=employee)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Employee updated successfully")
+            return redirect('details', emp_id)
+    else:
+        form = EmployeeForm(instance=employee)
+    return render(request, "update.html", {"form": form})
