@@ -31,3 +31,5 @@ class Command(BaseCommand):
         )
 
         # celery tasks
+
+        # python manage.py changepassword admin
